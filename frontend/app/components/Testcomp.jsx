@@ -1,26 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { GET } from '../api/user/route'
+import React, { useEffect, useState } from 'react';
+import { GET } from '../api/user/route';
 
 const Users = () => {
   const [userData, setUserData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await GET();
-        console.log('Response from API:', response);
-
-        if (response && response.status === 200) {
-          const data = await response.json();
+        console.log('Before API call');
+        const { success, data, error } = await GET();
+        
+        if (success) {
           console.log('Fetched data:', data);
           setUserData(data.users);
         } else {
-          console.error('Error fetching data:', response);
+          console.error('Error fetching data:', error);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+        console.log('After API call and setLoading');
       }
     };
 
@@ -32,16 +35,19 @@ const Users = () => {
   return (
     <>
       <h1>User Data</h1>
-      <ul>
-        {userData.map((user) => (
-          <li key={user.id}>
-            {user.name} - {user.email}
-          </li>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          {userData.map((user, index) => (
+            <li key={index}>
+              Name: {user.name}, Email: {user.email}
+            </li>
           ))}
-      </ul>
+        </ul>
+      )}
     </>
   );
 };
 
 export default Users;
-

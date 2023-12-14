@@ -1,5 +1,5 @@
 import Feed from './components/Feed'
-
+import Testcomp from './components/Testcomp'
 
 export default function Home() {
 
@@ -16,7 +16,7 @@ export default function Home() {
           </h1>
         </section>
 
-        {/* <Users /> */}
+        {/* <Testcomp /> */}
         <Feed />
       </>
   );

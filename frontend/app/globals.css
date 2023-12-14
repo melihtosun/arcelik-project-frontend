@@ -183,7 +183,6 @@
 }
 
 
-
 @media (max-width: 768px) {
   .head_text br {
     display: block; 
@@ -206,3 +205,5 @@
   box-shadow: inset 100px 0 0 0 #64696b;
   color: white;
 }
+
+
